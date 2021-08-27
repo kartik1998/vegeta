@@ -17,5 +17,6 @@ func main() {
 		log.Fatal(err)
 		os.Exit(1)
 	}
-	fmt.Println(data[0] + "\n" + data[1])
+	fmt.Println(data[0])
+	fmt.Println(data[1])
 }

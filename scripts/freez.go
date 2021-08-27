@@ -5,19 +5,6 @@ import (
 	"strings"
 )
 
-// type Process struct {
-// 	USER    string
-// 	PID     int32
-// 	CPU     float32
-// 	MEM     float32
-// 	VSZ     string
-// 	RSS     string
-// 	TT      string
-// 	STARTED string
-// 	TIME    string
-// 	COMMAND string
-// }
-
 type Process struct {
 	USER    string
 	PID     string
@@ -31,7 +18,7 @@ type Process struct {
 	COMMAND string
 }
 
-const ps_command = "ps aux | head -1; ps aux | sort -rnk 4 | head -5"
+const ps_command = "ps aux | head -1 | awk {'print $1\",\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$8\",\"$9\",\"$10\",\"$11'}; ps aux | sort -rnk 4 | awk {'print $1\",\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$8\",\"$9\",\"$10\",\"$11'}"
 
 func CollectProcessData() ([]string, error) {
 	out, err := exec.Command("bash", "-c", ps_command).Output()
