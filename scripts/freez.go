@@ -33,24 +33,26 @@ func CollectProcessData() ([]string, error) {
 		return []string{}, err
 	}
 	data_slice := cleanProcessData(string(out))
-	writeProcessData("./"+log_file_name, data_slice)
+	filepath, e := utils.CreateFile("./" + log_file_name)
+	if e != nil {
+		return []string{}, e
+	}
+	writeProcessData(filepath, data_slice)
 	return data_slice, nil
 }
 
-func writeProcessData(filePath string, values []string) error {
-	f, err := os.Create(filePath)
+func writeProcessData(filepath string, values []string) {
+	file, err := os.OpenFile(filepath, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		return err
+		return
 	}
-	defer f.Close()
-	fileHandle, _ := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	defer fileHandle.Close()
+	defer file.Close()
 	for _, value := range values {
-		if _, err := f.WriteString(fmt.Sprintf("%s\n", value)); err != nil {
-			log.Println(err)
+		fmt.Println(value)
+		if _, err := file.WriteString(value + "\n"); err != nil {
+			log.Fatal(err)
 		}
 	}
-	return nil
 }
 
 func cleanProcessData(process_data string) []string {

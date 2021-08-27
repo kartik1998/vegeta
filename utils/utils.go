@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"os"
 	"time"
 )
 
@@ -16,4 +17,24 @@ func Time() string {
 }
 func GetLogFileName() string {
 	return "freeza_" + Time() + ".log"
+}
+func CreateFile(path string) (string, error) {
+	if ex := FileExists(path); ex {
+		return path, nil
+	}
+	f, e := os.Create(path)
+	if e != nil {
+		return "", e
+	}
+	f.Close()
+	return path, nil
+}
+
+func FileExists(name string) bool {
+	if _, err := os.Stat(name); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
 }
