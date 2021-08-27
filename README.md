@@ -2,4 +2,4 @@
 
 # Introduction
 
-Freeza is a go library that regularly takes snapshots of the memory and CPU load of one or more running processes, so as to dynamically build up a profile of their usage of system resources.
+Freeza is a go pkg that regularly takes snapshots of the memory and CPU load of one or more running processes, so as to dynamically build up a profile of their usage of system resources.
