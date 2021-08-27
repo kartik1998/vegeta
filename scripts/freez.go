@@ -1,6 +1,8 @@
 package scripts
 
 import (
+	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -25,7 +27,21 @@ func CollectProcessData() ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	return cleanProcessData(string(out)), nil
+	data_slice := cleanProcessData(string(out))
+	writeProcessData("/Users/kartik/Desktop/dev/freeza/data.txt", data_slice)
+	return data_slice, nil
+}
+
+func writeProcessData(filePath string, values []string) error {
+	f, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	for _, value := range values {
+		fmt.Fprintln(f, value) // print values to f, one per line
+	}
+	return nil
 }
 
 func cleanProcessData(process_data string) []string {
