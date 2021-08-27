@@ -1,9 +1,6 @@
 package scripts
 
 import (
-	"bytes"
-	"fmt"
-	"log"
 	"os/exec"
 	"strings"
 )
@@ -34,23 +31,17 @@ type Process struct {
 	COMMAND string
 }
 
-func CollectProcessData() []string {
-	cmd := exec.Command("ps", "aux")
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	err := cmd.Run()
+const ps_command = "ps aux | head -1; ps aux | sort -rnk 4 | head -5"
+
+func CollectProcessData() ([]string, error) {
+	out, err := exec.Command("bash", "-c", ps_command).Output()
 	if err != nil {
-		log.Fatal(err)
+		return []string{}, err
 	}
-	return cleanProcessData(out.String())
+	return cleanProcessData(string(out)), nil
 }
 
 func cleanProcessData(process_data string) []string {
 	data_slice := strings.Split(process_data, "\n")
-	// processed_data_slice := []Process{}
-	for i := 1; i < len(data_slice); i++ {
-		curr_slice := strings.Split(data_slice[i], " ")
-		fmt.Println(curr_slice)
-	}
 	return data_slice
 }

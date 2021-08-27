@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/kartik1998/freeza/scripts"
 )
@@ -10,6 +12,10 @@ import (
 // https://stackoverflow.com/questions/10781516/how-to-pipe-several-commands-in-go
 
 func main() {
-	data := scripts.CollectProcessData()
+	data, err := scripts.CollectProcessData()
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
 	fmt.Println(data[0] + "\n" + data[1])
 }
