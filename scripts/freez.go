@@ -5,6 +5,8 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/kartik1998/freeza/utils"
 )
 
 type Process struct {
@@ -28,7 +30,8 @@ func CollectProcessData() ([]string, error) {
 		return []string{}, err
 	}
 	data_slice := cleanProcessData(string(out))
-	writeProcessData("/Users/kartik/Desktop/dev/freeza/data.txt", data_slice)
+	log_file_name := utils.GetLogFileName()
+	writeProcessData("./"+log_file_name, data_slice)
 	return data_slice, nil
 }
 

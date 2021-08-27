@@ -14,3 +14,6 @@ func getCurrentTime() time.Time {
 func Time() string {
 	return getCurrentTime().Format(apiDateLayout)
 }
+func GetLogFileName() string {
+	return "freeza_" + Time() + ".log"
+}
