@@ -10,5 +10,5 @@ import (
 
 func main() {
 	data := scripts.CollectProcessData()
-	fmt.Println(data)
+	fmt.Println(data[0])
 }
