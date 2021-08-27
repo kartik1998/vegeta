@@ -2,6 +2,7 @@ package scripts
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -42,8 +43,12 @@ func writeProcessData(filePath string, values []string) error {
 		return err
 	}
 	defer f.Close()
+	fileHandle, _ := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	defer fileHandle.Close()
 	for _, value := range values {
-		fmt.Fprintln(f, value) // print values to f, one per line
+		if _, err := f.WriteString(fmt.Sprintf("%s\n", value)); err != nil {
+			log.Println(err)
+		}
 	}
 	return nil
 }
