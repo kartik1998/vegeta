@@ -13,7 +13,7 @@ Given that vegeta is basically wrapper and parser of "ps" output, naturally the 
 Apart from requiring "ps" or something similar on your system, vegeta has no other dependencies whatsoever: it is a single self-contained pure go pkg and uses nothing but the standard Python libraries.
 
 # Usage
-You can either download the binary from here: https://github.com/kartik1998/vegeta/releases or run the command: 
+You can either download the binary from here [vegeta releases](https://github.com/kartik1998/vegeta/releases) or run the command: 
 ```
 mac: curl -O https://raw.githubusercontent.com/kartik1998/vegeta/master/bin/mac/vegeta
 ubuntu: curl -O https://raw.githubusercontent.com/kartik1998/vegeta/master/bin/ubuntu/vegeta
