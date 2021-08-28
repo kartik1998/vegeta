@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/kartik1998/vegeta/utils"
 )
 
 type Process struct {
@@ -43,6 +45,10 @@ func writeProcessData(filepath string, values []string) {
 	}
 	defer file.Close()
 	for i, value := range values {
+		if value == "" {
+			continue
+		}
+		value = utils.LogTime() + "," + value
 		writestr := fmt.Sprintf("%s\n", value)
 		if i == len(values)-1 {
 			writestr = value

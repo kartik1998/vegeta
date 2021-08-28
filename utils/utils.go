@@ -10,12 +10,16 @@ const (
 	apiDateLayout = "2006-01-02T15:04:05Z"
 )
 
-func getCurrentTime() time.Time {
+func getCurrentTimeUTC() time.Time {
 	return time.Now().UTC()
 }
 
 func Time() string {
-	return getCurrentTime().Format(apiDateLayout)
+	return getCurrentTimeUTC().Format(apiDateLayout)
+}
+
+func LogTime() string {
+	return time.Now().Format("01-02-2006 15:04:05")
 }
 
 func GetLogFileName() string {
@@ -44,7 +48,7 @@ func FileExists(name string) bool {
 }
 
 func WriteFileHeader(filepath string) {
-	str := "USER,PID,CPU,MEM,VSZ,RSS,STAT,START,TIME,COMMAND"
+	str := "LOG_TIME,USER,PID,CPU,MEM,VSZ,RSS,STAT,START,TIME,COMMAND"
 	file, err := os.OpenFile(filepath, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		return
