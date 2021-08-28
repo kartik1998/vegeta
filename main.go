@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/kartik1998/vegeta/scripts"
+	"github.com/kartik1998/vegeta/utils"
 )
 
 /*
@@ -15,7 +16,8 @@ import (
 * delayParam: -d
  */
 var (
-	delay int64 = 5
+	delay         int64  = 5
+	log_file_name string = utils.GetLogFileName()
 )
 
 func init() {
@@ -32,8 +34,11 @@ func init() {
 }
 
 func main() {
+	filepath, e := utils.CreateFile("./" + log_file_name)
+	check(e)
+	utils.WriteFileHeader(filepath)
 	for t := range time.Tick(time.Duration(delay) * time.Second) {
-		_, err := scripts.CollectProcessData()
+		_, err := scripts.CollectProcessData(filepath)
 		if err != nil {
 			log.Fatal(fmt.Sprintf("%s, %s", t, err))
 			os.Exit(1)
