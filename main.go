@@ -34,11 +34,9 @@ func init() {
 }
 
 func main() {
-	filepath, e := utils.CreateFile("./" + log_file_name)
-	check(e)
-	utils.WriteFileHeader(filepath)
+	createLogFiles()
 	for t := range time.Tick(time.Duration(delay) * time.Second) {
-		_, err := scripts.CollectProcessData(filepath)
+		_, err := scripts.CollectProcessData("./" + log_file_name)
 		if err != nil {
 			log.Fatal(fmt.Sprintf("%s, %s", t, err))
 			os.Exit(1)
@@ -46,6 +44,11 @@ func main() {
 	}
 }
 
+func createLogFiles() {
+	filepath, e := utils.CreateFile("./" + log_file_name)
+	check(e)
+	utils.WriteFileHeader(filepath)
+}
 func check(err error) {
 	if err != nil {
 		panic(err)
