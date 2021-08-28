@@ -10,6 +10,4 @@ Vegeta supports multiple modes. You can set the "delay" after which the snapshot
 # Prerequisites
 Given that vegeta is basically wrapper and parser of "ps" output, naturally the second-most important precondition for vegeta to work on your system is to have the "ps" command available. This is almost certainly true for all POSIX or mostly POSIX-compliant systems, including various flavors of UNIX, Linux's, Apple Mac OS X's etc.
 
-Unless they happen to have a POSIX-compliant subsystem (such as Cygwin) installed, however, Microsoft Windows users are out of luck. 
-
 Apart from requiring "ps" or something similar on your system, vegeta has no other dependencies whatsoever: it is a single self-contained pure go pkg and uses nothing but the standard Python libraries.
