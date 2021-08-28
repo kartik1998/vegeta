@@ -17,6 +17,7 @@ import (
  */
 var (
 	delay         int64  = 5
+	m             string = "-1"
 	log_file_name string = utils.GetLogFileName()
 )
 
@@ -27,6 +28,10 @@ func init() {
 		if param == "-d" || param == "--delay" {
 			delay, err = strconv.ParseInt(os.Args[i+1], 0, 8)
 			check(err)
+		} else if param == "-m" {
+			_, e := strconv.ParseInt(os.Args[i+1], 0, 8)
+			check(e)
+			m = os.Args[i+1]
 		} else {
 			panic("invalid parameters passed")
 		}
@@ -36,7 +41,7 @@ func init() {
 func main() {
 	createLogFiles()
 	for t := range time.Tick(time.Duration(delay) * time.Second) {
-		_, err := scripts.CollectProcessData("./" + log_file_name)
+		_, err := scripts.CollectProcessData(m, "./"+log_file_name)
 		if err != nil {
 			log.Fatal(fmt.Sprintf("%s, %s", t, err))
 			os.Exit(1)
