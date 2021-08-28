@@ -22,13 +22,13 @@ type Process struct {
 
 const ps_command = "ps aux | sort -rnk 4 | awk {'print $1\",\"$2\",\"$3\",\"$4\",\"$5\",\"$6\",\"$8\",\"$9\",\"$10\",\"$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$28,$30'} | sed '$d'"
 
-func CollectProcessData(filepath string) ([]string, error) {
+func CollectProcessData(filepaths ...string) ([]string, error) {
 	out, err := exec.Command("bash", "-c", ps_command).Output()
 	if err != nil {
 		return []string{}, err
 	}
 	data_slice := cleanProcessData(string(out))
-	writeProcessData(filepath, data_slice)
+	writeProcessData("./"+filepaths[0], data_slice)
 	return data_slice, nil
 }
 

@@ -13,7 +13,7 @@ import (
 
 /*
 * @params
-* delayParam: -d
+* delayParam: -d, --delay
  */
 var (
 	delay         int64  = 5
