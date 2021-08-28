@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/kartik1998/freeza/scripts"
+	"github.com/kartik1998/vegeta/scripts"
 )
 
 func main() {

@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/kartik1998/freeza/utils"
+	"github.com/kartik1998/vegeta/utils"
 )
 
 type Process struct {

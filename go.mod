@@ -1,3 +1,3 @@
-module github.com/kartik1998/freeza
+module github.com/kartik1998/vegeta
 
 go 1.16
