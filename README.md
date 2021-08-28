@@ -1,4 +1,4 @@
-<p align="center"> <img src="./assets/logo.png" alt="Vegeta" width=400 height=220/> </p>
+<p align="center"> <img src="./assets/vegeta.png" alt="Vegeta" width=400 height=220/> </p>
 
 # Introduction
 
