@@ -15,7 +15,7 @@ import (
 * delayParam: -d
  */
 var (
-	delay int64 = 1
+	delay int64 = 5
 )
 
 func init() {
