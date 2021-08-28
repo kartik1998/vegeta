@@ -16,7 +16,7 @@ func Time() string {
 	return getCurrentTime().Format(apiDateLayout)
 }
 func GetLogFileName() string {
-	return "freeza_" + Time() + ".log"
+	return "vegeta_" + Time() + ".log"
 }
 func CreateFile(path string) (string, error) {
 	if ex := FileExists(path); ex {
