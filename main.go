@@ -14,6 +14,7 @@ import (
 /*
 * @params
 * delayParam: -d, --delay
+* top M processes log counter: -m
  */
 var (
 	delay         int64  = 5
