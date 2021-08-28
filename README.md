@@ -18,6 +18,6 @@ You can either download the binary from here: https://github.com/kartik1998/vege
 curl -O https://raw.githubusercontent.com/kartik1998/vegeta/master/bin/vegeta
 ```
 
-Use the **-d** or **--delay** flag to set delay for memory snapshots (default delay = 5 seconds)
-The **-m** flag to log only those processes consuming **m** memory.
-sample usage: `./vegeta -d 2 -m 5`
+* Use the **-d** or **--delay** flag to set delay for memory snapshots (default delay = 5 seconds)
+* The **-m** flag to log only those processes consuming **m** memory.
+* Sample usage: `./vegeta -d 2 -m 5`
