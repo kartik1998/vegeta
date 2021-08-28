@@ -15,9 +15,11 @@ Apart from requiring "ps" or something similar on your system, vegeta has no oth
 # Usage
 You can either download the binary from here: https://github.com/kartik1998/vegeta/releases or run the command: 
 ```
-curl -O https://raw.githubusercontent.com/kartik1998/vegeta/master/bin/vegeta
+mac: curl -O https://raw.githubusercontent.com/kartik1998/vegeta/master/bin/mac/vegeta
+ubuntu: curl -O https://raw.githubusercontent.com/kartik1998/vegeta/master/bin/ubuntu/vegeta
 ```
 
 * Use the **-d** or **--delay** flag to set delay for memory snapshots (default delay = 5 seconds)
 * The **-m** flag to log only those processes consuming **m** memory.
 * Sample usage: `./vegeta -d 2 -m 5`
+* In case you get this error: `exec format error: ./vegeta`, run: `go build main.go; mv main vegeta` and try again
