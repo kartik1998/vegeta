@@ -44,7 +44,7 @@ func FileExists(name string) bool {
 }
 
 func WriteFileHeader(filepath string) {
-	str := "USER,PID,%CPU,%MEM,VSZ,RSS,STAT,STARTED,TIME,COMMAND"
+	str := "USER,PID,CPU,MEM,VSZ,RSS,STAT,START,TIME,COMMAND"
 	file, err := os.OpenFile(filepath, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		return
