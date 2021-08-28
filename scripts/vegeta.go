@@ -1,7 +1,6 @@
 package scripts
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -48,7 +47,6 @@ func writeProcessData(filepath string, values []string) {
 	}
 	defer file.Close()
 	for _, value := range values {
-		fmt.Println(value)
 		if _, err := file.WriteString(value + "\n"); err != nil {
 			log.Fatal(err)
 		}
