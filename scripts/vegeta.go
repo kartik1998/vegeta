@@ -34,14 +34,15 @@ func CollectProcessData(pid_set map[string]bool, m string, filepaths ...string) 
 		return []string{}, err
 	}
 	data_slice := cleanProcessData(string(out), pid_set)
-	writeProcessData("./"+filepaths[0], data_slice, pid_set)
-	return data_slice, nil
+	write_slice, _ := writeProcessData("./"+filepaths[0], data_slice, pid_set)
+	return write_slice, nil
 }
 
-func writeProcessData(filepath string, values []string, pid_set map[string]bool) {
+func writeProcessData(filepath string, values []string, pid_set map[string]bool) ([]string, error) {
 	file, err := os.OpenFile(filepath, os.O_APPEND|os.O_WRONLY, 0644)
+	var write_slice []string
 	if err != nil {
-		return
+		return []string{}, nil
 	}
 	defer file.Close()
 	for i, value := range values {
@@ -53,10 +54,12 @@ func writeProcessData(filepath string, values []string, pid_set map[string]bool)
 		if i == len(values)-1 && len(pid_set) == 0 {
 			writestr = value
 		}
+		write_slice = append(write_slice, writestr)
 		if _, err := file.WriteString(writestr); err != nil {
 			log.Fatal(err)
 		}
 	}
+	return write_slice, nil
 }
 
 func cleanProcessData(process_data string, pid_set map[string]bool) []string {
