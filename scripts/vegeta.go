@@ -34,11 +34,11 @@ func CollectProcessData(pid_set map[string]bool, m string, filepaths ...string) 
 		return []string{}, err
 	}
 	data_slice := cleanProcessData(string(out), pid_set)
-	writeProcessData("./"+filepaths[0], data_slice)
+	writeProcessData("./"+filepaths[0], data_slice, pid_set)
 	return data_slice, nil
 }
 
-func writeProcessData(filepath string, values []string) {
+func writeProcessData(filepath string, values []string, pid_set map[string]bool) {
 	file, err := os.OpenFile(filepath, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		return
@@ -50,7 +50,7 @@ func writeProcessData(filepath string, values []string) {
 		}
 		value = utils.LogTime() + "," + value
 		writestr := fmt.Sprintf("%s\n", value)
-		if i == len(values)-1 {
+		if i == len(values)-1 && len(pid_set) == 0 {
 			writestr = value
 		}
 		if _, err := file.WriteString(writestr); err != nil {
