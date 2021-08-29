@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/kartik1998/vegeta/graph"
@@ -52,12 +53,16 @@ func init() {
 }
 
 func main() {
-
+	var x_axis []string
+	var y_axis []string
 	createLogFiles()
 	for t := range time.Tick(time.Duration(delay) * time.Second) {
-		_, err := scripts.CollectProcessData(pid_set, m, "./"+log_file_name)
+		write_slice, err := scripts.CollectProcessData(pid_set, m, "./"+log_file_name)
 		if generate_graph {
-			graph.GenerateGraph(log_file_name)
+			slice := strings.Split(write_slice[0], ",")
+			x_axis = append(x_axis, slice[0])
+			y_axis = append(y_axis, slice[4])
+			graph.GenerateGraph(log_file_name, x_axis, y_axis)
 		}
 		if err != nil {
 			log.Fatal(fmt.Sprintf("%s, %s", t, err))

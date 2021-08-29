@@ -1,7 +1,6 @@
 package graph
 
 import (
-	"math/rand"
 	"os"
 
 	"github.com/go-echarts/go-echarts/v2/charts"
@@ -10,15 +9,15 @@ import (
 )
 
 // generate random data for bar chart
-func generateLineItems() []opts.LineData {
+func generateLineItems(axis []string) []opts.LineData {
 	items := make([]opts.LineData, 0)
-	for i := 0; i < 7; i++ {
-		items = append(items, opts.LineData{Value: rand.Intn(300)})
+	for _, val := range axis {
+		items = append(items, opts.LineData{Value: val})
 	}
 	return items
 }
 
-func GenerateGraph(log_file_name string) {
+func GenerateGraph(log_file_name string, x_axis []string, y_axis []string) {
 	line := charts.NewLine()
 	// set some global options like Title/Legend/ToolTip or anything else
 	line.SetGlobalOptions(
@@ -33,10 +32,9 @@ func GenerateGraph(log_file_name string) {
 		}))
 
 	// Put data into instance
-	line.SetXAxis([]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}).
-		AddSeries("Category A", generateLineItems()).
-		AddSeries("Category B", generateLineItems()).
-		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}), charts.WithLabelOpts(opts.Label{Show: true}))
+	line.SetXAxis(x_axis).
+		AddSeries("%MEM", generateLineItems(y_axis)).
+		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}), charts.WithLabelOpts(opts.Label{Show: false}))
 	// Where the magic happens
 	f, err := os.Create(log_file_name + "-graph.html")
 	if err != nil {
