@@ -15,11 +15,13 @@ import (
 * @params
 * delayParam: -d, --delay
 * top M processes log counter: -m
+* processId to trace: -p
  */
 var (
-	delay         int64  = 5
-	m             string = "-1"
-	log_file_name string = utils.GetLogFileName()
+	delay         int64           = 5
+	m             string          = "-1"
+	log_file_name string          = utils.GetLogFileName()
+	pid_set       map[string]bool = make(map[string]bool)
 )
 
 func init() {
@@ -33,6 +35,8 @@ func init() {
 			_, e := strconv.ParseInt(os.Args[i+1], 0, 8)
 			check(e)
 			m = os.Args[i+1]
+		} else if param == "-p" {
+			pid_set[os.Args[i+1]] = true
 		} else {
 			panic("invalid parameters passed")
 		}
@@ -42,7 +46,7 @@ func init() {
 func main() {
 	createLogFiles()
 	for t := range time.Tick(time.Duration(delay) * time.Second) {
-		_, err := scripts.CollectProcessData(m, "./"+log_file_name)
+		_, err := scripts.CollectProcessData(pid_set, m, "./"+log_file_name)
 		if err != nil {
 			log.Fatal(fmt.Sprintf("%s, %s", t, err))
 			os.Exit(1)
