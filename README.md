@@ -21,7 +21,7 @@ ubuntu: curl -O https://raw.githubusercontent.com/kartik1998/vegeta/master/bin/u
 
 * Use the **-d** or **--delay** flag to set delay for memory snapshots (default delay = 5 seconds)
 * The **-m** flag to log only those processes consuming **m** memory.
-* Use the **-p** flag to specify the process id of the processes you want to trace
+* Use the **-p** flag to specify the process id of the processes you want to trace. To view the processids you can use: `ps aux | head -1; ps aux | sort -rnk 4`
 * Sample usage 1: `./vegeta -d 2 -m 5`
 * Sample usage 2: `./vegeta -p 570 -p 20860 -p 568`
 * In case you get this error: `exec format error: ./vegeta`, run: `go build main.go; mv main vegeta` and try again
