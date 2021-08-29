@@ -25,15 +25,19 @@ func GenerateGraph() {
 	line.SetGlobalOptions(
 		charts.WithInitializationOpts(opts.Initialization{Theme: types.ThemeWesteros}),
 		charts.WithTitleOpts(opts.Title{
-			Title:    "Vegeta graph",
-			Subtitle: utils.Time(),
+			Title: "VEGETA",
+			Left:  "center",
+		}), charts.WithYAxisOpts(opts.YAxis{
+			Name: "%MEM",
+		}), charts.WithXAxisOpts(opts.XAxis{
+			Name: "TIMESTAMP",
 		}))
 
 	// Put data into instance
 	line.SetXAxis([]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}).
 		AddSeries("Category A", generateLineItems()).
 		AddSeries("Category B", generateLineItems()).
-		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}))
+		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}), charts.WithLabelOpts(opts.Label{Show: true}))
 	// Where the magic happens
 	f, err := os.Create(utils.Time() + ".html")
 	if err != nil {
