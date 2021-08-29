@@ -7,7 +7,6 @@ import (
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-echarts/go-echarts/v2/types"
-	"github.com/kartik1998/vegeta/utils"
 )
 
 // generate random data for bar chart
@@ -19,7 +18,7 @@ func generateLineItems() []opts.LineData {
 	return items
 }
 
-func GenerateGraph() {
+func GenerateGraph(log_file_name string) {
 	line := charts.NewLine()
 	// set some global options like Title/Legend/ToolTip or anything else
 	line.SetGlobalOptions(
@@ -39,7 +38,7 @@ func GenerateGraph() {
 		AddSeries("Category B", generateLineItems()).
 		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}), charts.WithLabelOpts(opts.Label{Show: true}))
 	// Where the magic happens
-	f, err := os.Create(utils.Time() + ".html")
+	f, err := os.Create(log_file_name + "-graph.html")
 	if err != nil {
 		panic(err)
 	}

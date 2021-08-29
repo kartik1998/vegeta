@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/kartik1998/vegeta/graph"
 	"github.com/kartik1998/vegeta/scripts"
 	"github.com/kartik1998/vegeta/utils"
 )
@@ -16,12 +17,14 @@ import (
 * delayParam: -d, --delay
 * top M processes log counter: -m
 * processId to trace: -p
+* to generate a graph use: --graph
  */
 var (
-	delay         int64           = 5
-	m             string          = "-1"
-	log_file_name string          = utils.GetLogFileName()
-	pid_set       map[string]bool = make(map[string]bool)
+	delay          int64           = 5
+	m              string          = "-1"
+	log_file_name  string          = utils.GetLogFileName()
+	pid_set        map[string]bool = make(map[string]bool)
+	generate_graph bool            = false
 )
 
 func init() {
@@ -41,12 +44,21 @@ func init() {
 			panic("invalid parameters passed")
 		}
 	}
+	for i := 1; i < len(os.Args); i += 1 {
+		if os.Args[i] == "--graph" || os.Args[i] == "-g" {
+			generate_graph = true
+		}
+	}
 }
 
 func main() {
+
 	createLogFiles()
 	for t := range time.Tick(time.Duration(delay) * time.Second) {
 		_, err := scripts.CollectProcessData(pid_set, m, "./"+log_file_name)
+		if generate_graph {
+			graph.GenerateGraph(log_file_name)
+		}
 		if err != nil {
 			log.Fatal(fmt.Sprintf("%s, %s", t, err))
 			os.Exit(1)
